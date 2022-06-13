@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 table {
   counter-reset: rowNumber -1;
 }
@@ -10,16 +9,3 @@ table tr td:first-child::before {
   min-width: 1em;
   margin-right: 0.5em;
 }
-=======
-table {
-  counter-reset: rowNumber -1;
-}
-table tr {
-  counter-increment: rowNumber;
-}
-table tr td:first-child::before {
-  content: counter(rowNumber);
-  min-width: 1em;
-  margin-right: 0.5em;
-}
->>>>>>> a1b8dcf (Możliwość dodawania, usuwania i przeglądania pytań oraz możliwość rozwiązywania testów.)

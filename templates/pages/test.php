@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-test page 
-=======
 <?php 
     $page ='';
     switch ($params['type']) {
@@ -69,4 +66,3 @@ test page
         <?php echo ($params['getQuestion']) ? "<button class='btn btn-lg d-block mx-auto my-5 btn-danger '>Sprawdź</button>" : ""?> 
     </form>
 </div>
->>>>>>> a1b8dcf (Możliwość dodawania, usuwania i przeglądania pytań oraz możliwość rozwiązywania testów.)
