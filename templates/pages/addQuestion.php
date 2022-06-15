@@ -52,10 +52,11 @@
 
      $getQuestion = $params['getQuestion'];
 ?>
+<?php include_once ('pageHeader.php'); ?>
 <hr class="border-success border-3 opacity-75">
 <div class="container mt-5">
     <h1 class="text-center text-secondary"><?php echo $page ?></h1>
-    <form class="form-floating my-5 mx-auto" method="post" action="/?page=add&type=<?php echo $params['type']?>&action=<?php echo ($getQuestion) ? 'edited' : 'create' ?>" style="max-width: 40rem;">
+    <form class="form-floating my-5 mx-auto" method="post" name="questionForm" action="/?page=add&type=<?php echo $params['type']?>&action=<?php echo ($getQuestion) ? 'edited' : 'create' ?>" style="max-width: 40rem;">
         <p class="mb-3 text-center fs-3 <?php echo $class ?>"><?php echo $message?> </p>
         <input type="hidden" name="id" value="<?php echo ($getQuestion) ? $getQuestion['id'] : ""?>">
         <div class="form-floating mb-3">

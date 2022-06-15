@@ -8,19 +8,33 @@ class Request
 {   
     private array $post = [];
     private array $get = [];
+    private array $server =[];
     
-    public function __construct(array $get, array $post)
+    public function __construct(array $get, array $post, array $server)
     {
         $this->get = $get;
         $this->post = $post;
-    }
-        public function getRequestGet(): array
-    {
-        return $this->request['get'] ?? [];
+        $this->server = $server;
     }
 
-    public function getRequestPost(): array
+    public function isPost(): bool
     {
-        return $this->request['post'] ?? [];
+        return $this->server['REQUEST_METHOD'] == "POST";
+    }
+    public function isGet(): bool
+    {
+        return $this->server['REQUEST_METHOD'] == "GET";
+    }
+    public function getParams(string $name, $default = null)
+    {
+        return $this->get[$name] ?? $default;
+    }
+    public function postParams($default = null)
+    {
+        return $this->post ?? $default;
+    }
+    public function hasPosts():bool
+    {
+        return !empty($this->post);
     }
 }

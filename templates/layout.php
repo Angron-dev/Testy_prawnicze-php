@@ -10,10 +10,6 @@
     <title>PHP Testy Prawnicze</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-between py-3">
-         <a href="/" class="fs-1 text-decoration-none text-dark fw-bold">Testy Prawnicze</a>
-        <button class="btn btn-primary"> Zaloguj się</button>
-    </div>
     <?php require ("pages/$page.php"); ?>
 </body>
 </html>

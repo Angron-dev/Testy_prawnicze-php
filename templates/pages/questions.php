@@ -1,3 +1,4 @@
+<?php include_once ('pageHeader.php'); ?>
 <div class="container">
     <h1 class="text-center my-5">Dodaj pytanie</h1>
     <div class="row justify-content-center mt-3">

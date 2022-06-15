@@ -9,3 +9,9 @@ table tr td:first-child::before {
   min-width: 1em;
   margin-right: 0.5em;
 }
+.login-form {
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}

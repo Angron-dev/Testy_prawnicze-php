@@ -4,11 +4,12 @@ declare (strict_types=1);
 
 namespace App\Model;
 
-require_once('./src/model/AbstractModel.php');
-
 use App\Model\AbstractModel;
 use PDO;
 use App\Exception\StorageException;
+
+require_once('./src/model/AbstractModel.php');
+
 
 class TestModel extends AbstractModel 
 {

@@ -25,13 +25,15 @@
     }
     $points = $params['points'];
 ?>
+<?php include_once ('pageHeader.php'); ?>
 <hr class="border-danger border-3 opacity-75">
 <div class="container">
     <?php if (!$params['getQuestion']): ?>
     <h1 class="text-center text-secondary"><?php echo $page ?></h1>
         <?php  if (!empty($points)): 
-        $limit = $points['limit'];
         $pointsScored = $points['pointsScored'];
+        $limit = $points['limit'];
+
     ?>
         <p class="text-center mt-5 fs-3">Liczba punktów</p>
         <p class="text-center fs-1"><?php echo  $pointsScored .' / '. $limit?> </p>
