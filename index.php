@@ -3,7 +3,7 @@
 declare (strict_types=1);
 
 namespace App;
-
+     session_start();
 
 use App\Request;
 use App\Controller\AbstractController;

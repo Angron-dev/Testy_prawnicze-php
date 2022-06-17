@@ -9,6 +9,7 @@ use App\Request;
 use App\Model\QuestionModel;
 use App\Model\TestModel;
 use App\Model\AbstractModel;
+use App\Exception\StorageException;
 
 use function PHPSTORM_META\type;
 
@@ -16,6 +17,7 @@ require_once('./src/Request.php');
 require_once('./src/model/QuestionModel.php');
 require_once('./src/model/TestModel.php');
 require_once('AbstractController.php');
+require_once('./src/Exeptions/StorageException.php');
 
 
 class QuestionsController extends AbstractController
@@ -32,16 +34,26 @@ class QuestionsController extends AbstractController
         $this->view = new View();
         $this->questionModel = new QuestionModel($this->configuration['db']);
         $this->testModel = new TestModel($this->configuration['db']);
+
     }
     public function mainPage(): void
-    {
-        $this->view->render('mainPage', []);
+    {       
+        $session = $_SESSION['user'] ?? false;
+        if ($this->request->getParams('page') == '') {
+            if ($session) {
+                $this->view->render('mainPage', []);
+            }else{
+                header("location: /?page=login");
+            }
+        }
+
     }    
     public function addPage():void
     {
+        $session = $_SESSION['user'] ?? false;
+
         if ($this->request->getParams('type') != null) {
             $type = $this->request->getParams('type');
-
             if($this->request->getParams('action') != null){
 
                 $action = $this->request->getParams('action');
@@ -72,22 +84,37 @@ class QuestionsController extends AbstractController
                         break;
                 }
             }
-            $msg = '';
+
             if ($this->request->getParams('msg') != null) {
                 $msg = $this->request->getParams('msg');
             }
 
             $get = $this->questionModel->get($type);
 
-            $this->view->render('addQuestion', ['type' => $type, 'get' => $get, 'msg' => $msg, 'getQuestion' => $getQuestions ?? null ]);
+            if ($session) {
+                $this->view->render('addQuestion', [
+                    'type' => $type, 
+                    'get' => $get, 
+                    'msg' => $msg ?? '', 
+                    'getQuestion' => $getQuestions ?? null 
+                    ]);
+            }else{
+                header("location: /?page=login");
+            }
 
         }else{
-            $this->view->render('questions', []);
+            if ($session) {
+                $this->view->render('questions', []);
+            }else{
+                header("location: /?page=login");
+            }
         }
     }
 
     public function testPage():void
     {
+        $session = $_SESSION['user'] ?? false;
+
         $this->request->getParams('type');
         if ($this->request->getParams('type') != null) {
             $type = $this->request->getParams('type');
@@ -99,28 +126,32 @@ class QuestionsController extends AbstractController
 
                    $getQuestions = $this->testModel->getTest($type, $limit);
                     break;
-                
                 case 'check':
                     $answers = $this->request->postParams();
                     $limit = count($answers);
 
                     $pointsScored = $this->testModel->testCheck($answers);
                     $points = ['pointsScored' => $pointsScored, 'limit' => $limit];
-
                     break;
             
             }
-            $this->view->render('test', ['type' => $type, 'points' => $points ?? null, 'getQuestion' => $getQuestions ?? []]);
+            if ($session) {
+                $this->view->render('test', 
+                ['type' => $type, 
+                'points' => $points ?? null, 
+                'getQuestion' => $getQuestions ?? []
+                ]);
+            }else{
+                header("location: /?page=login");
+            }
+
         }else{
-            $this->view->render('tests', []);
+            if ($session) {
+                $this->view->render('tests', []);
+            }else{
+                header("location: /?page=login");
+            }
+            
         }
-    }
-    public function loginPage()
-    {
-        $this->view->render('login', []);
-    }
-        public function registerPage()
-    {
-        $this->view->render('register', []);
     }
 }
